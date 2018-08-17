@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Engineer, Client, ClientUser
+
+admin.site.register(Engineer)
+admin.site.register(Client)
+admin.site.register(ClientUser)
