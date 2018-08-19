@@ -134,6 +134,15 @@ class Issue(models.Model):
     class Meta:
         ordering = ('-created_at',)
 
+    def get_absolute_url(self):
+        return reverse_lazy(
+            'issue-api:detail',
+            kwargs={
+                'id': self.id})
+
+    def __str__(self):
+        return str(self.id)
+
 
 class IssueLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)

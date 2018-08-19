@@ -38,7 +38,7 @@ class IssueSerializer(serializers.ModelSerializer):
         model = Issue
         fields = (
             'id',
-            'title',
+            'subject',
             'client',
             'status',
             'expected_date',

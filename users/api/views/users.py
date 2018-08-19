@@ -9,13 +9,10 @@ from rest_framework.response import Response
 
 
 # write individual views to handle requests
-@api_view('GET', 'POST')
+@api_view(['GET', 'POST'])
 def user_list(request):
     """
     API Endpoint Used to get all users or created a single user based on the request
-    :param request: either a POST or GET request is sent
-    :return: if GET -- Query db for all Users and return if POST store data and return
-    instance of the object
     """
     if request.method == 'GET':
         users = get_list_or_404(User)
@@ -30,13 +27,10 @@ def user_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view('GET', 'PUT', 'DELETE')
+@api_view(['GET', 'PUT', 'DELETE'])
 def user_detail(request, pk):
     """
     API Endpoint used to retrieve, update or delete a user from database
-    :param request: Http request (GET,PUT,DELETE)
-    :param pk: the primary key of the user in question
-    :return: user details of validation errors
     """
     try:
         user = User.objects.get(pk=pk)
