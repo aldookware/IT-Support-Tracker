@@ -75,13 +75,12 @@ class Client(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        # return reverse_lazy(
-        #     'client-api:detail',
-        #     kwargs={
-        #         'pk': self.id
-        #     }
-        # )
-        pass
+        return reverse_lazy(
+            'client-api:detail',
+            kwargs={
+                'pk': self.id
+            }
+        )
 
     def __str__(self):
         return str(self.title)
@@ -104,13 +103,10 @@ class ClientUser(User):
         ordering = ('-created_at',)
 
     def get_absolute_url(self):
-        # return reverse_lazy(
-        #     'clients:client-user-detail',
-        #     kwargs={
-        #         'user': self.user.pk
-        #     }
-        # )
-        pass
+        return reverse_lazy(
+            'clients:client-user-detail',
+            kwargs={
+                'user': self.user.pk})
 
     def __str__(self):
         return str(self.user.first_name)
@@ -123,7 +119,7 @@ class Issue(models.Model):
     status = models.CharField(
         max_length=20,
         choices=[(tag.name, tag.value) for tag in Status],
-        default=Status.PENDING.name)  # status of the issue, pending, resolved, etc
+        default=Status.PENDING.human_name)  # status of the issue, pending, resolved, etc
     expected_date = models.DateField(null=True)  # expected resolution date
     date_resolved = models.DateTimeField(null=True)
     issue_description = models.TextField()  # dated issue was resolved
@@ -152,5 +148,17 @@ class IssueLog(models.Model):
     status = models.CharField(
         max_length=20,
         choices=[(tag.name, tag.value) for tag in Status],
-        default=Status.PENDING.name)
+        default=Status.PENDING.value)
     log_by = models.ForeignKey(User)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Service(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    title = models.CharField(max_length=255,)
+    service_description = models.TextField()
+
+    def __str__(self):
+        return str(self.id)
