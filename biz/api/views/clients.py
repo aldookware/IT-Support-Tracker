@@ -1,8 +1,7 @@
-from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from users.models import Client
+from biz.models import Client
 
 from ..serializers import ClientSerializer
 

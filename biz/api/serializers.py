@@ -1,8 +1,5 @@
-996967459
-7932
-
 from rest_framework import serializers
-from users.models import Engineer, Client, User, Issue
+from biz.models import Engineer, Client, User, Issue
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -36,11 +33,39 @@ class ClientSerializer(serializers.ModelSerializer):
         )
 
 
-class IssueSerializer(serializers.ModelSerializer):
+class IssueListSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='issue-api:detail',
+        lookup_field='pk',
+
+    )
+
     class Meta:
         model = Issue
         fields = (
+            'url',
             'id',
+            'subject',
+            'client',
+            'status',
+            'expected_date',
+            'date_resolved',
+            'issue_description',
+            'created_by',
+            'created_at',
+        )
+
+
+class IssueCreateUpdateSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='issue-api:detail',
+        lookup_field='pk',
+    )
+
+    class Meta:
+        model = Issue
+        fields = (
+            'url',
             'subject',
             'client',
             'status',

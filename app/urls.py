@@ -18,18 +18,18 @@ from django.contrib import admin
 
 from rest_framework import routers
 
-# from users.api.views import EngineerViewSet, ClientViewSet, UserViewSet
+# from biz.api.views import EngineerViewSet, ClientViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 # router.register(r'engineers', EngineerViewSet)
 # router.register(r'clients', ClientViewSet)
-# router.register(r'users', UserViewSet)
+# router.register(r'biz', UserViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/users/', include('users.api.urls.users', namespace='user-api')),
-    url(r'^api/issues/', include('users.api.urls.issues', namespace='issue-api')),
-    url(r'^api/clients/', include('users.api.urls.clients', namespace='issue-api')),
+    url(r'^api/biz/', include('biz.api.urls.users', namespace='user-api')),
+    url(r'^api/issues/', include('biz.api.urls.issues', namespace='issue-api')),
+    url(r'^api/clients/', include('biz.api.urls.clients', namespace='client-api')),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

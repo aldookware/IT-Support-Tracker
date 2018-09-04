@@ -1,10 +1,10 @@
 from enum import Enum
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
-from django.urls import reverse_lazy, reverse
 
 import uuid
 
@@ -36,6 +36,9 @@ class User(AbstractUser):
     is_engineer = models.BooleanField('engineer', default=False)
     is_client_user = models.BooleanField('client_user', default=False)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Engineer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -43,22 +46,8 @@ class Engineer(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, *args, **kwargs):
-    if created:
-        Engineer.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, *args, **kwargs):
-    instance.engineer.save()
-
-    # client
-    # service
-    # engineer
-
-    # we have two users, engineer, client_users
+    def __str__(self):
+        return str(self.user.id)
 
 
 class Client(models.Model):
@@ -75,12 +64,10 @@ class Client(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse_lazy(
+        return reverse(
             'client-api:detail',
             kwargs={
-                'pk': self.id
-            }
-        )
+                'pk': self.id})
 
     def __str__(self):
         return str(self.title)
@@ -103,7 +90,7 @@ class ClientUser(User):
         ordering = ('-created_at',)
 
     def get_absolute_url(self):
-        return reverse_lazy(
+        return reverse(
             'clients:client-user-detail',
             kwargs={
                 'user': self.user.pk})
@@ -131,10 +118,9 @@ class Issue(models.Model):
         ordering = ('-created_at',)
 
     def get_absolute_url(self):
-        return reverse_lazy(
+        return reverse(
             'issue-api:detail',
-            kwargs={
-                'id': self.id})
+            kwargs={'pk': self.id})
 
     def __str__(self):
         return str(self.id)
@@ -142,7 +128,7 @@ class Issue(models.Model):
 
 class IssueLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    Issue = models.OneToOneField(Issue, on_delete=models.CASCADE)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
     notes = models.CharField(max_length=255, )
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
@@ -157,7 +143,7 @@ class IssueLog(models.Model):
 
 class Service(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    title = models.CharField(max_length=255,)
+    title = models.CharField(max_length=255, )
     service_description = models.TextField()
 
     def __str__(self):
