@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 # from biz.api.views import EngineerViewSet, ClientViewSet, UserViewSet
 
@@ -27,9 +28,10 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/biz/', include('biz.api.urls.users', namespace='user-api')),
+    url(r'^api/users/', include('biz.api.urls.users', namespace='user-api')),
     url(r'^api/issues/', include('biz.api.urls.issues', namespace='issue-api')),
     url(r'^api/clients/', include('biz.api.urls.clients', namespace='client-api')),
-    url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
 ]

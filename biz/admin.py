@@ -11,6 +11,7 @@ class InlineIssueLog(admin.TabularInline):
     model = IssueLog
     can_delete = False
 
+
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
     inlines = [

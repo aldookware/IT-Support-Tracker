@@ -17,6 +17,12 @@ class ClientDetailView(generics.RetrieveAPIView):
     serializer_class = ClientSerializer
 
 
+class ClientUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
 class ClientCreateViewAPIView(generics.CreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
