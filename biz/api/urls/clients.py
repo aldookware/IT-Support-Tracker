@@ -1,11 +1,11 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
-from ..views.clients import ClientListView, ClientDetailView, ClientCreateViewAPIView, ClientUpdateAPIView
+from ..views.clients import ClientViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'', ClientViewSet)
 
 urlpatterns =[
-    url(r'^$', ClientListView.as_view(), name='list'),
-    url(r'^create/$', ClientCreateViewAPIView.as_view(), name='create'),
-    url(r'^(?P<pk>[\w-]+)/$', ClientDetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>[\w-]+)/update/$', ClientUpdateAPIView.as_view(), name='update'),
-
+    url(r'^', include(router.urls)),
 ]

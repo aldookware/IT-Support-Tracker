@@ -23,17 +23,12 @@ class EngineerSerializer(serializers.ModelSerializer):
             'location',)
 
 
-class ClientSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
-        view_name='client-api:detail',
-        lookup_field='pk'
-    )
-
+class ClientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Client
         fields = (
+            # 'url',
             'id',
-            'url',
             'title',
             'address',
         )
