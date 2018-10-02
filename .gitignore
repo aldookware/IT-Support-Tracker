@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 logs/
-
+frontend/
 .idea/
 htmlcov/
 .coveragerc
