@@ -12,7 +12,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Remote Python 3.5.2 Vagrant VM at H:/it-support-tracker (/home/vagrant/.venvs/it-support-tacker-venv/bin/python)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7.0 virtualenv at ~/Documents/projects/tracker/env" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
