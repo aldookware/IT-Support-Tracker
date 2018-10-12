@@ -1,0 +1,5 @@
+curl -X POST -d "username=admin&password=test1234" http://192.168.33.11/api/token-auth/
+
+$ curl -X POST -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}' http://l192.168.33.11/api-token-auth/
+
+curl -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhbGRvLm9rd2FyZUBtb2FwLmNvLnVnIiwiZXhwIjoxNTM2MzMxODc4LCJ1c2VyX2lkIjoiNWUwNDM0YmMtYTc4MS00MWQ4LWE3NzYtNWU1ZWQ0YTMzMDhhIn0.AyEK0gt6yIrBIZKbiKHtG9uJ8XJjgMqpr3O0ftg4cmY" http://192.18.33.11/api/clients/

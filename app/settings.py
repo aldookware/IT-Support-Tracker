@@ -14,6 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -29,25 +31,52 @@ ALLOWED_HOSTS = ['192.168.33.11', 'dev.tracker.moap.co.ug']
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'biz',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'app.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
 
 TEMPLATES = [
     {
@@ -65,6 +94,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
@@ -77,7 +107,7 @@ DATABASES = {
         'USER': 'dev',
         'PASSWORD': '#@HrMFl@r@pamo',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -112,9 +142,30 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework.authentication.BasicAuthentication',
+    # ),
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(
-    BASE_DIR, 'assets/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'assets', 'admin'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'biz.user'
+
