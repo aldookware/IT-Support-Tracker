@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.test import RequestFactory
 from django.test.client import Client as c
 from django.utils import timezone
-from django.core.urlresolvers import reverse_lazy
 
 from mixer.backend.django import mixer
 
