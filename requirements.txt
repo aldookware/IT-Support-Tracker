@@ -33,7 +33,7 @@ psycopg2-binary==2.7.5
 ptyprocess==0.6.0
 py==1.5.4
 Pygments==2.2.0
-PyJWT==1.6.4
+PyJWT==2.4.0
 pytest==3.7.2
 pytest-cov==2.5.1
 pytest-django==3.4.1
