@@ -41,7 +41,7 @@ pytest-ipdb==0.1
 python-dateutil==2.7.3
 pytz==2018.5
 rarfile==2.7
-requests==2.20.1
+requests==2.31.0
 simplegeneric==0.8.1
 six==1.11.0
 text-unidecode==1.2
